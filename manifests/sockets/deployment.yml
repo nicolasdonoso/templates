@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $REPO
+  name: $REPO_NAME
   labels:
-    name: $REPO
+    name: $REPO_NAME
 spec:
   replicas: $REPLICAS
   strategy:
@@ -13,12 +13,12 @@ spec:
        maxUnavailable: 25%
   selector:
     matchLabels:
-      name: $REPO
+      name: $REPO_NAME
 
   template:
     metadata:
       labels:
-        name: $REPO
+        name: $REPO_NAME
       annotations:
         gitlab.com/job-id: "$CI_JOB_ID"
         kube_namespace: $CI_JOB_STAGE
@@ -32,8 +32,8 @@ spec:
         kops.k8s.io/instancegroup: nodes
       $volume
       containers:
-      - name: $REPO
-        image: $AWS_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO:$RUN_ID
+      - name: $REPO_NAME
+        image: $AWS_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME:$RUN_ID
         command: ["node", "app.js"]
         $volume_mounts
         resources:
