@@ -33,7 +33,7 @@ spec:
       $volume
       containers:
       - name: $REPO
-        image: AWS_ACCOUNT.dkr.ecr.AWS_REGION.amazonaws.com/$REPO:$RUN_ID
+        image: $AWS_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO:$RUN_ID
         command: ["node", "app.js"]
         $volume_mounts
         resources:
