@@ -22,10 +22,7 @@ spec:
       annotations:
         gitlab.com/job-id: "$CI_JOB_ID"
         kube_namespace: $CI_JOB_STAGE
-        # config.linkerd.io/opaque-ports: "$SOCKETS_PORT"
-        # linkerd.io/inject: enabled
     spec:
-      # serviceAccountName: linkerd-pods
       securityContext:
         runAsUser: 999
       nodeSelector:
