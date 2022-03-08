@@ -1,0 +1,30 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: $REPO_NAME
+spec:
+  schedule: "$crontab"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          $sa
+          restartPolicy: Never
+          securityContext:
+            runAsUser: 999
+          nodeSelector:
+              kops.k8s.io/instancegroup: nodes
+          containers:
+          - name: $REPO_NAME
+            image: $AWS_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME:$RUN_ID
+            $command
+            env:
+            - name: ENV_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: environment.name
+            $creds
