@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: $REPO_NAME
+  annotations:
+    kubernetes.io/ingress.class: $INGRESS_CLASS
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /$REPO_NAME(/|$)(.*)
+        backend:
+          serviceName: $REPO_NAME
+          servicePort: $CONTAINER_PORT
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: $REPO_NAME-internal
+  annotations:
+    kubernetes.io/ingress.class: $INGRESS_CLASS-internal
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /$REPO_NAME(/|$)(.*)
+        backend:
+          serviceName: $REPO_NAME
+          servicePort: $CONTAINER_PORT

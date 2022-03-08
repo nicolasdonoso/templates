@@ -1,0 +1,13 @@
+livenessProbe:
+  httpGet:
+    path: $HEALTH_ENDPOINT
+    port: $HEALTH_PORT
+  initialDelaySeconds: 30
+  periodSeconds: 15
+  failureThreshold: 3
+readinessProbe:
+  httpGet:
+    path: $HEALTH_ENDPOINT
+    port: $HEALTH_PORT
+  initialDelaySeconds: 15
+  periodSeconds: 15
