@@ -41,12 +41,12 @@ spec:
             memory: $mem
             cpu: $cpu
         ports:
-        - containerPort: $SOCKETS_PORT
+        - containerPort: $CONTAINER_PORT
           name: http
         $probes
         env:
         - name: HTTP_PORT
-          value: "${SOCKETS_PORT}"
+          value: "${CONTAINER_PORT}"
         - name: NODE_ENV
           valueFrom:
             configMapKeyRef:
