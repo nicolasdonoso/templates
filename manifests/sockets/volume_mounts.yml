@@ -1,0 +1,3 @@
+volumeMounts:
+  - name: $volume_name
+    mountPath: $MOUNTPATH
